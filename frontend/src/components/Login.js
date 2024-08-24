@@ -21,12 +21,17 @@ function Login({ onLogin }) {
     };
 
     return (
+        <>
+        <div>
+        <h1>Login</h1>
         <form onSubmit={handleSubmit}>
             <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
             <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" />
             <button type="submit">Login</button>
             {error && <p>{error}</p>}
         </form>
+        </div>
+        </>
     );
 }
 
