@@ -18,11 +18,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->timestamps();
         });
-        Schema::create('category_product', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-        });
+        
     }
 
     /**

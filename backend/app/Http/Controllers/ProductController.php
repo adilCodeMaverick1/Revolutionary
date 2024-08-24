@@ -1,5 +1,5 @@
 <?php
-
+// app/Http/Controllers/ProductController.php
 namespace App\Http\Controllers;
 
 use App\Models\Product;
@@ -8,38 +8,33 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
-        $products = Product::with('categories')->get();
-        return response()->json($products);
-    }
-
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'categoryIds' => 'array', // Ensure this is an array of category IDs
+        ]);
+
         $product = Product::create($request->only(['name', 'description', 'price']));
-        $product->categories()->attach($request->categories);
-        return response()->json($product);
+        $product->categories()->sync($request->input('categoryIds')); // Sync categories
+
+        return response()->json($product, 201);
     }
 
-    public function show($id)
+    public function update(Request $request, Product $product)
     {
-        $product = Product::with('categories')->find($id);
-        return response()->json($product);
-    }
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'categoryIds' => 'array', // Ensure this is an array of category IDs
+        ]);
 
-    public function update(Request $request, $id)
-    {
-        $product = Product::find($id);
         $product->update($request->only(['name', 'description', 'price']));
-        $product->categories()->sync($request->categories);
-        return response()->json($product);
-    }
+        $product->categories()->sync($request->input('categoryIds')); // Sync categories
 
-    public function destroy($id)
-    {
-        $product = Product::find($id);
-        $product->categories()->detach();
-        $product->delete();
-        return response()->json(['message' => 'Product deleted successfully']);
+        return response()->json($product, 200);
     }
 }
