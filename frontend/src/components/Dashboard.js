@@ -3,6 +3,11 @@ import api from '../services/api';
 import  '../css/login.css';
 import '../css/dash.css'
 function Dashboard({ onLogout }) {
+    const handleLogout = () => {
+        
+        localStorage.removeItem('token');
+        onLogout(); 
+    };
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState('');
     const [editingCategory, setEditingCategory] = useState(null);
@@ -107,7 +112,7 @@ function Dashboard({ onLogout }) {
     return (
         <div className="container mt-5">
             <h1>Dashboard</h1>
-            <button className="btn btn-danger mb-4" onClick={onLogout}>Logout</button>
+            <button className="btn btn-danger mb-4" onClick={handleLogout}>Logout</button>
 
           
             <div className="mb-4">
@@ -179,7 +184,7 @@ function Dashboard({ onLogout }) {
                 />
                 <select
                     multiple
-                    className="input mt-2"
+                    className="input"
                     value={newProduct.categoryIds}
                     onChange={(e) => setNewProduct({ ...newProduct, categoryIds: Array.from(e.target.selectedOptions, option => option.value) })}
                 >
