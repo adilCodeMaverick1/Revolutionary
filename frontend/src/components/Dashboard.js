@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import  '../css/login.css';
-import '../css/dash.css'
+import '../css/dash.css';
+import  Payment from '../components/Payment.js';
 function Dashboard({ onLogout }) {
     const handleLogout = () => {
         
@@ -112,7 +113,7 @@ function Dashboard({ onLogout }) {
     return (
         <div className="container mt-5">
             <h1>Dashboard</h1>
-            <button className="btn btn-danger mb-4" onClick={handleLogout}>Logout</button>
+            {/* <button className="btn btn-danger mb-4" onClick={handleLogout}>Logout</button>
 
           
             <div className="mb-4">
@@ -156,10 +157,10 @@ function Dashboard({ onLogout }) {
                         </li>
                     ))}
                 </ul>
-            </div>
+            </div> */}
 
             {/* Product CRUD */}
-            <div className="mb-4 mt-5">
+            {/* <div className="mb-4 mt-5">
                 <h2>{editingProduct ? 'Edit Product' : 'Add Product'}</h2>
                 <input
                     type="text"
@@ -199,9 +200,9 @@ function Dashboard({ onLogout }) {
                 ) : (
                     <button className="btn btn-primary mt-2" onClick={handleAddProduct}>Add Product</button>
                 )}
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
                 <h2>Products</h2>
                 <ul className="list-group">
                     {products.map((product) => (
@@ -214,7 +215,8 @@ function Dashboard({ onLogout }) {
                         </li>
                     ))}
                 </ul>
-            </div>
+            </div> */}
+            <Payment/>
         </div>
     );
 }
